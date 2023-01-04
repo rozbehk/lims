@@ -8,7 +8,9 @@ const fs = require('fs');
 module.exports = {
   register,
   login,
-  update
+  update,
+  uploadImage,
+  getAllUsers
 };
 
 async function register(req, res) {
@@ -75,9 +77,9 @@ async function login(req, res) {
 }
 
 
-async function update(req,res){
+async function update(req, res) {
   console.log(req.body)
-  try{
+  try {
     let user = await User.findById(req.body._id)
     console.log(user)
     user.firstName = req.body.firstName
@@ -85,11 +87,25 @@ async function update(req,res){
     user.email = req.body.email
     const token = jwt.sign({ user }, process.env.SECRET, { expiresIn: "24h" });
     user.save()
-    res.status(200).json({token,message: 'Details Updated'});
+    res.status(200).json({ token, message: 'Details Updated' });
 
-  }catch(err){
-    res.status(400).json(err); 
+  } catch (err) {
+    res.status(400).json(err);
     console.log(err)
   }
-  
+
+}
+
+async function uploadImage(req, res) {
+  console.log(req)
+}
+
+async function getAllUsers(req, res) {
+  try {
+    let user = await User.find({})
+    res.status(200).json(user)
+  } catch (err) {
+    res.status(400).json(err);
+    console.log(err)
+  }
 }

@@ -14,6 +14,12 @@ export function getToken() {
     return token ? JSON.parse(atob(token.split(".")[1])).user : null;
   }
 
+  export async function getAllUsers () {
+    const users = await fetch(`/api/users/getallusers`)
+    .then (users => users.json())
+    return users
+  }
+
   export function logOut() {
     localStorage.removeItem("token");
   }

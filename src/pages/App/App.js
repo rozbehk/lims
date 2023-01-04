@@ -11,13 +11,15 @@ export default class App extends Component {
     firstName : '',
     lastName : '',
     email : '',
-    userType: ''
+    userType: '',
+    profileImage: '',
+    image: ''
   }
 
   setUserInState = () => {
     this.setState({ user: true})
     let user = getUser()
-    this.setState({firstName: user.firstName, lastName: user.lastName, email: user.email})
+    this.setState({firstName: user.firstName, lastName: user.lastName, email: user.email, image: user.image})
     if(user.admin){
       this.setState({userType : 'admin'})
     }else if(user.labTech){
@@ -50,7 +52,7 @@ export default class App extends Component {
         {!this.state.user ?
           <Auth setUserInState={this.setUserInState} />
           : (
-          <Panel removeUserInState={this.removeUserInState} name={`${this.state.firstName} ${this.state.lastName}`}/>
+          <Panel removeUserInState={this.removeUserInState} name={`${this.state.firstName} ${this.state.lastName}`} profileImage={this.state.profileImage}/>
           )
         }
       </div>

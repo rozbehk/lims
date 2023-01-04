@@ -12,7 +12,6 @@ export default class LoginForm extends Component {
     }
 
     handleSubmit = async (evt) => {
-        console.log('submit)')
         evt.preventDefault();
         try {
             const options = {

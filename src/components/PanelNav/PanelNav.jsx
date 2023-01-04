@@ -9,12 +9,13 @@ export default function PanelNav(props) {
                 <ul className="navbar-nav text-light" id="accordionSidebar">
                     <li onClick={() => props.setDefaultTab('dashboard')} className="nav-item"><div className={props.activeTab === 'dashboard' ? "nav-link active" : "nav-link"}><i className="fas fa-tachometer-alt"></i><span>Dashboard</span></div></li>
                     <li onClick={() => props.setDefaultTab('profile')} className="nav-item"><div className={props.activeTab === 'profile' ? "nav-link active" : "nav-link"} ><i className="fas fa-user"></i><span>Profile</span></div></li>
-                    <li onClick={() => props.setDefaultTab('table')} className="nav-item"><div className={props.activeTab === 'table' ? "nav-link active" : "nav-link"} ><i className="fas fa-table"></i><span>Table</span></div></li>
-                    <li onClick={() => props.setDefaultTab('login')} className="nav-item"><div className={props.activeTab === 'login' ? "nav-link active" : "nav-link"} ><i className="far fa-user-circle"></i><span>Login</span></div></li>
-                    <li onClick={() => props.setDefaultTab('register')} className="nav-item"><div className={props.activeTab === 'register' ? "nav-link active" : "nav-link"} ><i className="fas fa-sign-out-alt"></i><span>Register</span></div></li>
+                    <li onClick={() => props.setDefaultTab('users')} className="nav-item"><div className={props.activeTab === 'users' ? "nav-link active" : "nav-link"} ><i className="fas fa-table"></i><span>User list</span></div></li>
+                    <li onClick={() => props.setDefaultTab('edit-categoiries')} className="nav-item"><div className={props.activeTab === 'edit-categoiries' ? "nav-link active" : "nav-link"} ><i className="far fa-user-circle"></i><span>Edit Categoiries</span></div></li>
+                    <li onClick={() => props.setDefaultTab('edit-tests')} className="nav-item"><div className={props.activeTab === 'register' ? "nav-link active" : "nav-link"} ><i className="fas fa-sign-out-alt"></i><span>Edit Tests</span></div></li>
                 </ul>
                 <div className="text-center d-none d-md-inline"><button className="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
             </div>
         </nav>
     )
 }
+
