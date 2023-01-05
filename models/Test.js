@@ -14,14 +14,19 @@ const testSchema = new Schema(
             required: true,
             ref: 'Category',
         },
-        tests: [{
+        samples: {
             type: Schema.Types.ObjectId,
-            required: true,
             ref: 'Sample',
-        }],
+        },
+        customer: {
+            type: Schema.Types.ObjectId,
+            ref: 'Customer',
+        },
 
     },
     {
         timestamps: true,
     }
 );
+
+module.exports = mongoose.model("Test", testSchema);

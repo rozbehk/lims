@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 
 
-const userSchema = new Schema(
+const categorySchema = new Schema(
     {
         name: {
             type: String,
@@ -12,17 +12,11 @@ const userSchema = new Schema(
         tests: [{
             type: Schema.Types.ObjectId,
             ref: 'Test'
-        }],
+          }]
     },
     {
         timestamps: true,
-        toJSON: {
-            transform: function (doc, ret) {
-                delete ret.password;
-                return ret;
-            },
-        },
     }
 );
 
-module.exports = mongoose.model("Category", userSchema);
+module.exports = mongoose.model("Category", categorySchema);

@@ -1,8 +1,6 @@
 import { Component } from "react";
-import { timeFormat } from "../../services/utilities";
-import { getAllCategories } from "../../services/testServices";
-import { get } from "mongoose";
-import userEvent from "@testing-library/user-event";
+import { getAllCategories } from "../../services/categoryServices";
+
 
 export default class PanelEditCategories extends Component {
 
@@ -29,7 +27,7 @@ export default class PanelEditCategories extends Component {
                     name: this.state.categoryName,
                 }),
             };
-            const fetchResponse = await fetch("/api/tests/createcategory", options);
+            const fetchResponse = await fetch("/api/categories/createcategory", options);
             let responseMessage = await fetchResponse.json();
             console.log(fetchResponse)
             if (!fetchResponse.ok) {
@@ -37,6 +35,7 @@ export default class PanelEditCategories extends Component {
                 throw new Error(responseMessage);
             }
             const categories = await getAllCategories().then(categories => categories.json())
+            console.log(categories)
             this.setState({ error: 'Category created', categoryName: '', categories: categories })
             console.log('cleared')
 
@@ -54,7 +53,7 @@ export default class PanelEditCategories extends Component {
                     id
                 }),
             };
-            const fetchResponse = await fetch("/api/tests/deletecategory", options);
+            const fetchResponse = await fetch("/api/categories/deletecategory", options);
             let responseMessage = await fetchResponse.json();
             if (!fetchResponse.ok) {
                 this.setState({ error: responseMessage });
@@ -94,10 +93,11 @@ export default class PanelEditCategories extends Component {
                                                     <input onChange={this.handleChange} name="categoryName" value={this.state.categoryName} type="text" className="form-control" id="category-name" placeholder="Category name" />
                                                 </div>
                                             </div>
-                                            {this.state.error && <div>{this.state.error}</div>}
+                                            
                                             <div className="col-12">
                                                 <button className="btn btn-primary">Add</button>
                                             </div>
+                                            {this.state.error && <div>{this.state.error}</div>}
                                         </form>
                                     </div>
                                 </div>
@@ -126,15 +126,21 @@ export default class PanelEditCategories extends Component {
 
                                                         this.state.categories.map((category, index) => (
                                                             <tr key={category._id} className='align-middle'>
-                                                                <td>{index+1}</td>
-                                                                <td class>{category.name}</td>
+                                                                <td>
+                                                                    {index+1}
+                                                                </td>
+                                                                <td>
+                                                                    {category.name}
+                                                                </td>
                                                                 <td>
                                                                     {category.tests.length}
                                                                 </td>
                                                                 <td>
                                                                     <button className="btn btn-primary d-block">update</button>
                                                                 </td>
-                                                                <td><button onClick={() => this.handleDeleteCategory(category._id)} className="btn btn-danger d-block">X</button></td>
+                                                                <td>
+                                                                    <button onClick={() => this.handleDeleteCategory(category._id)} className="btn btn-danger d-block">X</button>
+                                                                </td>
 
                                                             </tr>
                                                         ))

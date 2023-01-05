@@ -47,12 +47,14 @@ export default class PanelUserList extends Component {
                                                         <th>Position</th>
                                                         <th>Email</th>
                                                         <th>Registration date</th>
+                                                        <th></th>
+                                                        <th></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     {this.state.users.length &&
                                                         this.state.users.map((user) => (
-                                                            <tr key={user._id}>
+                                                            <tr key={user._id} className='align-middle'>
                                                                 <td><img className="rounded-circle me-2" width="30" height="30" src={user.image ? user.img : 'profile-logo.png'} /></td>
                                                                 <td>{user.firstName + " " + user.lastName}</td>
                                                                 <td>
@@ -60,12 +62,15 @@ export default class PanelUserList extends Component {
                                                                 </td>
                                                                 <td>{user.email}</td>
                                                                 <td>{timeFormat(user.createdAt)}</td>
+                                                                <td>
+                                                                    <button className="btn btn-primary d-block">update</button>
+                                                                </td>
+                                                                <td>
+                                                                    <button  className="btn btn-danger d-block">X</button>
+                                                                </td>
                                                             </tr>
                                                         ))}
-
-
                                                 </tbody>
-
                                             </table>
                                         </div>
                                         <div className="row">

@@ -1,4 +1,5 @@
-const Category = require("../models/Category");
+const Test = require("../models/Test");
+const Category = require("../models/Category")
 
 
 module.exports = {
@@ -9,16 +10,21 @@ module.exports = {
 }
 
 async function create(req, res) {
-  console.log('create')
+  console.log(req.body)
   let message = ''
   try {
-    if (await Category.findOne({ name: req.body.name })) {
-      message = 'Category exists'
+    if (await Test.findOne({ name: req.body.name })) {
+      message = 'Test exists'
       throw new Error()
     }
-    const category = await Category.create({
-      name: req.body.name
+    const test = await Test.create({
+      name: req.body.name,
+      category : req.body.categoryId
     });
+    let category = await Category.findById(req.body.categoryId)
+    category.tests.push(test._id)
+    console.log(category)
+    category.save()
     res.status(200).json('created');
   } catch (err) {
     console.log(err)
@@ -28,13 +34,22 @@ async function create(req, res) {
 }
 
 async function deleteOne(req,res){
-  const category = await Category.findByIdAndDelete(req.body.id)
-  res.status(200).json(`Category ${category.name} Deleted!!`)
+  try{
+    const test = await Test.findByIdAndDelete(req.body.id)
+    let category = await Category.findById(test.category)
+    category.tests.remove(test._id)
+    category.save()
+    res.status(200).json(`Category ${category.name} Deleted!!`)
+  }catch(err){
+    console.log(err)
+    res.status(400).json(err)
+  }
+  
 }
 
 async function getAll(req, res) {
   try {
-    const categories = await Category.find({}).sort({ name: 1 })
+    const categories = await Test.find({}).sort({ name: 1 }).populate({ path: 'category' })
     res.status(200).json(categories)
   } catch (err) {
     res.status(400).json(err)

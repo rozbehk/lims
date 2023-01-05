@@ -1,10 +1,10 @@
 export async function getAllCategories(){
-    const categories = await fetch('/api/tests/getallcategories')
+    const categories = await fetch('/api/categories/getallcategories')
     return categories
 
 }
 
 export function createCategory(incomingCat){
-    const category = fetch('/api/tests/createcategory')
+    const category = fetch('/api/categories/createcategory')
     return category
 }
